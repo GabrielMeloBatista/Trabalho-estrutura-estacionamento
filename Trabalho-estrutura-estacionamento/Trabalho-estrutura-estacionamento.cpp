@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define TAM 20
 // Construa um algoritmo que administre as reservas de carros em uma locadora de veículos, sendo que existe uma lista de modelos de carro
 typedef struct modeloCarro
@@ -12,13 +13,68 @@ typedef struct modeloCarro
 typedef struct modeloGaveta {
 	char carro[TAM];
 	struct modeloGaveta* Carro;
-};
+} gaveta;
 
 // Existe uma fila de espera de clientes para cada modelo.
 typedef struct filaCliente {
 	char cliente[TAM];
 	struct filaCliente* prox;
-};
+} fila;
+
+typedef struct pont {
+    fila* p;
+    fila* u;
+}ponteiros;
+
+int vazioFila(ponteiros* f) {
+    if (f->p == NULL) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+ponteiros* enfileirar(ponteiros* i, char *name) {
+    fila* nova;
+
+    nova = (fila*)malloc(sizeof(fila));
+    // TODO Colocar a forma correta de colocar string
+    strcpy(nova->cliente, name);
+    nova->prox = NULL;
+
+    if (vazioFila(i)) {
+        i->p = nova;
+        i->u = nova;
+    }
+    else {
+        i->u->prox = nova;
+        i->u = nova;
+    }
+
+    return i;
+
+}
+
+char* desenfileira(ponteiros* i) {
+    char x[TAM];
+    fila* a = i->p;
+
+    // TODO corrigir colocando a forma de modificar string
+    // x = i->p->cliente;
+    strcpy(x ,i->p->cliente);
+
+    if (i->p->prox == NULL) {
+        i->p = NULL;
+        i->u = NULL;
+    }
+    else {
+        i->p = i->p->prox;
+    }
+
+    free(a);
+    return x;
+}
 
 // Assim, se existe carro disponível o cliente é acionado, se concluída a locação, o cliente sai da fila e o carro da pilha.
 
