@@ -12,7 +12,7 @@ typedef struct modeloCarro
 // O estacionamento dos carros é modelo gaveta, assim os modelos são controlados e separados por uma pilha de carros.
 typedef struct modeloGaveta {
 	char carro[TAM];
-	struct modeloGaveta* Carro;
+	struct modeloGaveta* prox;
 } gaveta;
 
 // Existe uma fila de espera de clientes para cada modelo.
@@ -39,7 +39,6 @@ ponteiros* enfileirar(ponteiros* i, char *name) {
     fila* nova;
 
     nova = (fila*)malloc(sizeof(fila));
-    // TODO Colocar a forma correta de colocar string
     strcpy(nova->cliente, name);
     nova->prox = NULL;
 
@@ -73,6 +72,26 @@ char* desenfileira(ponteiros* i) {
     }
 
     free(a);
+    return x;
+}
+
+void empilha(char *y, gaveta* tp) {
+    gaveta* nova;
+    nova = (gaveta*)malloc(sizeof(gaveta));
+    strcpy(nova->carro, y);
+    //nova->carro = y;
+    nova->prox = tp->prox;
+    tp->prox = nova;
+}
+
+char* desempilha(gaveta* tp) {
+    char x[TAM];
+    gaveta* p;
+    p = tp->prox;
+    strcpy(x, p->carro);
+    // x = p->carro;
+    tp->prox = p->prox;
+    free(p);
     return x;
 }
 
