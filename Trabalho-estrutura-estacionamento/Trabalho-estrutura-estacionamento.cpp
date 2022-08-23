@@ -95,6 +95,36 @@ char* desempilha(gaveta* tp) {
     return x;
 }
 
+void insereLista(char *x, modelo* p)
+{
+    modelo* nova;
+    nova = (modelo*)malloc(sizeof(modelo));
+    strcpy(nova->modeloCarro, x);
+    //nova->modeloCarro = x;
+    nova->prox = p->prox;
+    p->prox = nova;
+}
+
+void removeLista(modelo* p)
+{
+    modelo* lixo;
+    lixo = p->prox;
+    p->prox = lixo->prox;
+    free(lixo);
+}
+
+modelo* buscaLista(char *x, modelo* le)
+{
+    modelo* p;
+    p = le;
+    //while (p != NULL && p->modeloCarro != x)
+    while (p != NULL && strcmp(p->modeloCarro, x))
+    {
+        p = p->prox;
+    }
+    return p;
+}
+
 // Assim, se existe carro disponível o cliente é acionado, se concluída a locação, o cliente sai da fila e o carro da pilha.
 
 // Quando o cliente faz a devolução do carro ele volta para a pilha(estacionamento)
