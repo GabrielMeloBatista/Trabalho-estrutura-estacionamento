@@ -59,7 +59,6 @@ char* desenfileira(ponteiros* i) {
     char x[TAM];
     fila* a = i->p;
 
-    // TODO corrigir colocando a forma de modificar string
     // x = i->p->cliente;
     strcpy(x ,i->p->cliente);
 
@@ -126,6 +125,24 @@ modelo* buscaLista(char *x, modelo* le)
 }
 
 // Assim, se existe carro disponível o cliente é acionado, se concluída a locação, o cliente sai da fila e o carro da pilha.
+int carroDisponivel(gaveta *p) {
+    if (p!= NULL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void verificaDisponibilidadeCarro(gaveta* p) {
+    if (carroDisponivel(p))
+    {
+        // Concluida locação
+        // cliente sai da fila e o carro da pilha.
+    }
+}
 
 // Quando o cliente faz a devolução do carro ele volta para a pilha(estacionamento)
 
