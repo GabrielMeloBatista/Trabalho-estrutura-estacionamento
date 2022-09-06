@@ -261,11 +261,11 @@ void devolucaoCarro(modelo* p) {
     aux = buscaLista(nomeModelo, p);
 
     // Verificar se há clientes esperando pelo carro
-    if (p->filaEspera != NULL)
+    if (aux->filaEspera != NULL)
     { 
         printf("\nCarro Disponivel"); 
-        desenfileira(p->filaInfo);
-        desempilha(p->carrosEstacionado);
+        desenfileira(aux->filaInfo);
+        desempilha(aux->carrosEstacionado);
     }
     empilharCarro(aux);
 }
